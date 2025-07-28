@@ -1,0 +1,101 @@
+{
+    "layer": "top", // Waybar at top layer
+    "output": "DP-1",
+    "position": "top", // Waybar at the bottom of your screen
+    "height": 26, // Waybar height
+    // "width": 1366, // Waybar width
+    // Choose the order of the modules
+    //"modules-left": ["hyprland/workspaces", "hyprland/mode", "custom/spotify"],
+    "modules-left": ["hyprland/workspaces", "custom/spotify"],
+    "modules-center": ["hyprland/window"],
+    "modules-right": ["pulseaudio","bluetooth", "network", "cpu", "memory", "battery", "tray", "clock"],
+    "hyprland/workspaces": {
+        "disable-scroll": true,
+        //"all-outputs": true,
+        //"active-only": false,
+        "persistent-only": true,
+        "format": "{icon}",
+        "format-icons": {
+            "1:web": "",
+            "2:code": "",
+            "3:term": "",
+            "4:work": "",
+            "5:music": "",
+            "6:docs": "",
+            "urgent": "",
+            "focused": "",
+            "default": ""
+        },
+        "persistent-workspaces": {
+            "DP-1": 9,
+        }
+    },
+    "hyprland/mode": {
+        "format": "<span style=\"italic\">{}</span>"
+    },
+    "tray": {
+        // "icon-size": 21,
+        "spacing": 10
+    },
+    "clock": {
+        //"format-alt": "{:%Y-%m-%d}"
+        "format": "{:%d.%m | %H:%M}"
+    },
+    "cpu": {
+        "format": "{usage}% "
+    },
+    "memory": {
+        "format": "{}% "
+    },
+    "battery": {
+        "bat": "BAT0",
+        "states": {
+            // "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{capacity}% {icon}",
+        // "format-good": "", // An empty format will hide the module
+        // "format-full": "",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "network": {
+        // "interface": "wlp2s0", // (Optional) To force the use of this interface
+        // "format-wifi": "{essid} ({signalStrength}%) ",
+        // "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
+        "format-disconnected": "Disconnected ⚠"
+    },
+    "bluetooth": {
+	"controller": "bluetoothctl", // specify the alias of the controller if there are more than 1 on the system
+        //"on-click": "blueman-applet",
+	"format": " {status}",
+	//"format-disabled": "", // an empty format will hide the module
+	"format-connected": " {num_connections} connected",
+	"tooltip-format": "{controller_alias}\t{controller_address}",
+	"tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+	"tooltip-format-enumerate-connected": "{device_alias}\t{device_address}"
+    },
+    "pulseaudio": {
+        //"scroll-step": 1,
+        "format": "{volume}% {icon}",
+        "format-bluetooth": "{volume}% {icon}",
+        "format-muted": "",
+        "format-icons": {
+            "headphones": "",
+            "handsfree": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+    "custom/spotify": {
+        "format": " {}",
+        "max-length": 40,
+        "interval": 30, // Remove this if your script is endless and write in loop
+        "exec": "$HOME/.config/waybar/mediaplayer.sh 2> /dev/null", // Script in resources folder
+        "exec-if": "pgrep spotify"
+    }
+}
